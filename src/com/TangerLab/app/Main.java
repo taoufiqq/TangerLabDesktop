@@ -261,7 +261,7 @@ public class Main {
 					}
 					  
 					 JOptionPane.showMessageDialog(btnAdd, "Employe Added Successfully");
-
+						show();
 					 textNom.setText("");
 					 textPrenom.setText("");
 					 textAge.setText("");
@@ -316,7 +316,7 @@ public class Main {
 						 stmt.executeUpdate();
 						  
 						 JOptionPane.showMessageDialog(btnAdd, "Employe Deleted Successfully");
-						 
+						 show();
 						 textNom.setText("");
 						 textPrenom.setText("");
 						 textAge.setText("");
@@ -436,7 +436,7 @@ public class Main {
 							 stmt.executeUpdate();
 						  
 						 JOptionPane.showMessageDialog(btnAdd, "Employe edited Successfully");
-
+						 show();
 						 textNom.setText("");
 						 textPrenom.setText("");
 						 textAge.setText("");
@@ -482,49 +482,7 @@ public class Main {
 		btnOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				try {
-					
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					
-					 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tangerlab", "root", "");
-					 
-					
-					 
-					 stmt = conn.prepareStatement("SELECT * FROM employe");
-						
-					 ResultSet result = stmt.executeQuery();
-					 
-
-					 DefaultTableModel df = (DefaultTableModel)table.getModel();
-					 
-					 df.setRowCount(0);
-					 
-					 while(result.next()) {
-						int id = result.getInt("id");
-						String nom = result.getString("nom");
-						String prenom = result.getString("prenom");
-						int age = result.getInt("age");
-						String service = result.getString("service");
-						String date_entree_service = result.getString("date_entree_service");
-						int prix_unitaire = result.getInt("prix_unitaire");
-						Double salaire = result.getDouble("salaire");
-						
-                        df.addRow(new Object[] {id,nom,prenom,age,service,date_entree_service,prix_unitaire,salaire});
-                        
-                     }
-					
-	 
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
-				
-				
-				
-				
+				show();
 				
 				
 			}
@@ -544,7 +502,7 @@ public class Main {
 		lblNewLabel_2.setForeground(SystemColor.inactiveCaptionBorder);
 		lblNewLabel_2.setBackground(Color.WHITE);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblNewLabel_2.setBounds(436, 11, 484, 59);
+		lblNewLabel_2.setBounds(417, 11, 484, 59);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		JPanel panel_2 = new JPanel();
@@ -692,6 +650,52 @@ public class Main {
 		btnList.setBounds(462, 54, 128, 43);
 		panel_3.add(btnList);
 		
+
 	
+	}
+	public void show() {
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tangerlab", "root", "");
+			 
+			
+			 
+			 stmt = conn.prepareStatement("SELECT * FROM employe");
+				
+			 ResultSet result = stmt.executeQuery();
+			 
+
+			 DefaultTableModel df = (DefaultTableModel)table.getModel();
+			 
+			 df.setRowCount(0);
+			 
+			 while(result.next()) {
+				int id = result.getInt("id");
+				String nom = result.getString("nom");
+				String prenom = result.getString("prenom");
+				int age = result.getInt("age");
+				String service = result.getString("service");
+				String date_entree_service = result.getString("date_entree_service");
+				int prix_unitaire = result.getInt("prix_unitaire");
+				Double salaire = result.getDouble("salaire");
+				
+                df.addRow(new Object[] {id,nom,prenom,age,service,date_entree_service,prix_unitaire,salaire});
+                
+             }
+			
+
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+		
+		
+		
+		
 	}
 }
